@@ -332,6 +332,15 @@ class QueryAPI(BaseResource):
             return q.to_dict(with_visualizations=True)
         else:
             abort(404, message="Query not found.")
+    
+    @require_permission('delete_query')
+    def delete(self, query_id):
+        query = models.Query.get_by_id(query_id)
+        
+        if query.user_id == self.current_user.id:
+            print 'Own query'
+        else:
+            print 'Other\'s query'
 
 api.add_resource(QuerySearchAPI, '/api/queries/search', endpoint='queries_search')
 api.add_resource(QueryListAPI, '/api/queries', endpoint='queries')
