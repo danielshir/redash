@@ -337,7 +337,6 @@ class QueryAPI(BaseResource):
         else:
             abort(404, message="Query not found.")
     
-    @require_permission('delete_query')
     def delete(self, query_id):
         q = models.Query.get(models.Query.id == query_id)
         if q:
@@ -353,7 +352,7 @@ class QueryAPI(BaseResource):
         else:
             abort(404, message="Query not found.")
     
-    @require_permission('delete_other_query')
+    @require_permission('delete_queries')
     def delete_others_query(self, query_id):
         q = models.Query.get(models.Query.id == query_id)
         q.is_archived = True
