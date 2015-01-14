@@ -334,7 +334,7 @@ class Query(BaseModel):
         q = Query.select(Query, User, QueryResult.retrieved_at, QueryResult.runtime)\
             .join(QueryResult, join_type=peewee.JOIN_LEFT_OUTER)\
             .switch(Query).join(User)\
-            .group_by(Query.id, User.id, QueryResult.id, QueryResult.retrieved_at, QueryResult.runtime)
+            .group_by(Query.id, User.id, QueryResult.id, QueryResult.retrieved_at, QueryResult.runtime)\
             .where(Query.is_archived==False)
 
         return q
